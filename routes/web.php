@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Controllers\RestoController;
+//use App\Http\Controllers\RestoController;
+
+use App\Http\Controllers\productController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('login');
 });
 
@@ -25,3 +28,6 @@ Route::get('/', function () {
 // Route::get('delete/{id}',[RestoController::class,'delete']);
 // Route::get('edit/{id}',[RestoController::class,'edit']);
 // Route::post('update',[RestoController::class,'update']);
+
+Route::post('/login',[UserController::class,'login']);
+Route::get('/',[productController::class,'index']);
