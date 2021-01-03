@@ -5,7 +5,7 @@
 use App\Http\Controllers\productController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,7 +22,7 @@ Route::get('/login', function () {
 });
 
 Route::get('/logout', function () {
-    Session()->forget('user');
+    Session::forget('user');
     return redirect('login');
 });
 
@@ -36,3 +36,6 @@ Route::get('/logout', function () {
 
 Route::post('/login',[UserController::class,'login']);
 Route::get('/',[productController::class,'index']);
+Route::get('detail/{id}',[productController::class,'detail']);
+Route::get('search',[ProductController::class,'search']);
+Route::post('add_to_cart',[productController::class,'addToCart']);
