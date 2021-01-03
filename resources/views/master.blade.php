@@ -36,5 +36,10 @@
     .detail-img{
         height: 200px;
     }
+    .cart-list-devider{
+        border-bottom: 1px solid #cccccc;
+        margin-bottom: 20px;
+        padding-bottom: 20px; 
+    }
 </style>
 </html>

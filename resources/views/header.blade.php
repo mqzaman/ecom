@@ -22,7 +22,7 @@ $total = productController::cartItem();
                     <a class="nav-link" href="#">Order</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Cart({{ $total }})</a>
+                    <a class="nav-link" aria-current="page" href="cartlist">Cart({{ $total }})</a>
                 </li>
                 @if (Session::has('user'))
                 <li class="nav-item dropdown">
@@ -31,17 +31,17 @@ $total = productController::cartItem();
                         {{$username}}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/resto/logout">Logout</a></li>
+                        <li><a class="dropdown-item" href="logout">Logout</a></li>
                     </ul>
                 </li>
                 @else
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/resto/login">Login</a>
+                    <a class="nav-link" aria-current="page" href="login">Login</a>
                 </li>
                 @endif
                 
             </ul>
-            <form class="d-flex" action="/resto/search">
+            <form class="d-flex" action="search">
                 <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
