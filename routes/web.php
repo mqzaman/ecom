@@ -21,6 +21,11 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/logout', function () {
+    Session()->forget('user');
+    return redirect('login');
+});
+
 // Route::get('/',[RestoController::class,'index']);
 // Route::get('/list', [RestoController::class,'list']);
 // Route::view('add', 'add');
