@@ -1,9 +1,10 @@
 <?php
-use App\Http\Controllers\productController;
+use App\Http\Controllers\ProductController;
 $total = 0;
 if (Session::has('user')) {
-$username = Session::get('user')['name'];    
-$total = productController::cartItem();
+$username = Session::get('user')['name'];  
+$userid = Session::get('user')['id'];    
+$total = ProductController::cartItem();
 }
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,7 +20,7 @@ $total = productController::cartItem();
                     <a class="nav-link active" aria-current="page" href="/resto/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Order</a>
+                    <a class="nav-link" href="myorders">My Orders</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="cartlist">Cart({{ $total }})</a>
@@ -31,12 +32,16 @@ $total = productController::cartItem();
                         {{$username}}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="editprofile/{{$userid}}">Edit Profile</a></li>
                         <li><a class="dropdown-item" href="logout">Logout</a></li>
                     </ul>
                 </li>
                 @else
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="register">Register</a>
                 </li>
                 @endif
                 

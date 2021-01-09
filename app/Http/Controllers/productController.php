@@ -7,9 +7,10 @@ use App\Models\Product;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use App\Models\Order;
 use Illuminate\Support\Facades\Redis;
 
-class productController extends Controller
+class ProductController extends Controller
 {
     //
     function index()
@@ -66,5 +67,50 @@ class productController extends Controller
     {
         Cart::destroy($cart_id);
         return redirect('cartlist');
+    }
+    function orderNow()
+    {
+        if (Session::has('user')) {
+            $userid = Session::get('user')['id'];
+        } else {
+            $userid = 0;
+        }
+        $total = DB::table('cart')
+            ->join('products', 'cart.product_id', '=', 'products.id')
+            ->where('cart.user_id', $userid)
+            ->select('products.*', 'cart.id as cart_id')
+            ->sum('products.price');
+
+        return view('ordernow', ['total' => $total]);
+    }
+    function orderPlace(Request $req){
+        $userid = Session::get('user')['id'];
+        $allCart = Cart::where('user_id',$userid)->get();
+        foreach ($allCart as $cart) {
+            $order = new Order;
+            $order->product_id=$cart->product_id;
+            $order->user_id=$userid;
+            $order->status="Pending";
+            $order->payment_method=$req->payment;
+            $order->payment_status="Pending";
+            $order->address=$req->deliveryaddress;
+            $order->save();
+        }
+        Cart::where('user_id',$userid)->delete();
+        return redirect('/');
+    }
+    function myOrders(){
+        
+        if (Session::has('user')) {
+            $userid = Session::get('user')['id'];
+        } else {
+            return redirect('login');
+        }
+        $my_orders = DB::table('orders')
+            ->join('products', 'orders.product_id', '=', 'products.id')
+            ->where('orders.user_id', $userid)
+            ->get();
+
+        return view('myorders', ['orders' => $my_orders]);
     }
 }

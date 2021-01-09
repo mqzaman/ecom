@@ -2,7 +2,7 @@
 
 //use App\Http\Controllers\RestoController;
 
-use App\Http\Controllers\productController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -34,10 +34,18 @@ Route::get('/logout', function () {
 // Route::get('edit/{id}',[RestoController::class,'edit']);
 // Route::post('update',[RestoController::class,'update']);
 
+Route::view('register','register');
+//Route::get('register',[UserController::class,'register']);
+Route::post('register',[UserController::class,'register']);
+Route::get('editprofile/{id}',[UserController::class,'editProfile']);
+Route::post('updateprofile',[UserController::class,'updateProfile']);
 Route::post('/login',[UserController::class,'login']);
-Route::get('/',[productController::class,'index']);
-Route::get('detail/{id}',[productController::class,'detail']);
+Route::get('/',[ProductController::class,'index']);
+Route::get('detail/{id}',[ProductController::class,'detail']);
 Route::get('search',[ProductController::class,'search']);
-Route::post('add_to_cart',[productController::class,'addToCart']);
-Route::get('cartlist',[productController::class,'cartList']);
-Route::get('removecart/{cart_id}',[productController::class,'removeCart']);
+Route::post('add_to_cart',[ProductController::class,'addToCart']);
+Route::get('cartlist',[ProductController::class,'cartList']);
+Route::get('removecart/{cart_id}',[ProductController::class,'removeCart']);
+Route::get('ordernow',[ProductController::class,'orderNow']);
+Route::post('orderplace',[ProductController::class,'orderPlace']);
+Route::get('myorders',[ProductController::class,'myOrders']);
